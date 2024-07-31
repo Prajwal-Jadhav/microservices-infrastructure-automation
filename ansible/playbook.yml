@@ -1,0 +1,17 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Run Microservices Application Container
+      docker_container:
+        name: microservices-app
+        image: yourusername/microservices-app:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "80:80"
